@@ -25,12 +25,28 @@ namespace Yak.Cap.InMemory.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCap(x =>
-            {
-                x.UseInMemoryStorage();
-                x.UseInMemoryMessageQueue();
-            });
             services.AddControllers();
+            //添加事件总线cap
+            services.AddCap(x => {
+                // 使用内存存储消息(消息发送失败处理)
+                x.UseInMemoryStorage();
+
+            });
+           
+            //services.AddCap(x => {
+            //    //如果你使用的ADO.NET，根据数据库选择进行配置：
+            //    x.UseSqlServer("server=.\\MSSQLSERVER2016;uid=sa;pwd=sasa;database=CAP");
+
+            //    //CAP支持 RabbitMQ、Kafka、AzureServiceBus 等作为MQ，根据使用选择配置：
+            //    x.UseRabbitMQ(y => {
+            //        y.HostName = "localhost";
+            //        y.Port = 5672;
+            //        y.VirtualHost = "/";
+            //        y.UserName = "admin";
+            //        y.Password = "123456";
+            //    });
+            //});
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
